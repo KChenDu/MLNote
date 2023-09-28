@@ -31,6 +31,6 @@
           vector[token_index] = 1
           return vector
       ```
-   4. [使用TextVectorization层](text_vectorization.py)
+   4. [使用TextVectorization层](text_data_preprocessing.ipynb)
 
 [返回](../readme.md)
