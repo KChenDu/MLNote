@@ -32,5 +32,7 @@
           return vector
       ```
    4. [使用TextVectorization层](text_data_preprocessing.ipynb)
+2. 集合和序列
+   1. [准备IMDB影评数据]
 
 [返回](../readme.md)

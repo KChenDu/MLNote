@@ -1,1 +1,8 @@
 .idea
+NLP/aclImdb
+NLP/binary_1gram.keras
+NLP/binary_2gram.keras
+NLP/tfidf_2gram.keras
+NLP/embeddings_bidir_gru.keras
+NLP/glove.6B.100d.txt
+NLP/glove_embeddings_sequence_model.keras
