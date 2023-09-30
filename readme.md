@@ -1,1 +1,2 @@
-- [NLP](NLP/text_data_preprocessing.md)
+- [线性模型](linear_model/readme.md)
+- [NLP](NLP/readme.md)
