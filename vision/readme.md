@@ -1,8 +1,12 @@
-Thur: 8:30 - 9:30
-
-Image Space vs Feature Space
-kNN?
-- non-stop surrounded by stop
-- relevance of feature
-- singular case very far away from non singular
-
+1. [卷积层](convolutional_layers.ipynb)
+    1. 滤波器：神经元的权重集
+    2. 堆叠多个特征图：卷积层将多个可训练的滤波器同时应用于其输入，从而使其能够检测出输入中任何位置的多个特性
+2. [池化层](pooling_layers.ipynb)：对输入图像进行下采样，以便减少计算量、内存使用量和参数数量
+3. [CNN架构](cnn.ipynb)
+    - LeNet-5
+    - AlexNet
+    - GoogLeNet
+    - VGGNet
+    - ResNet
+    - Xception
+    - SENet
