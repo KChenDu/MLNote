@@ -1,4 +1,5 @@
 .idea
+books
 NLP/aclImdb
 NLP/binary_1gram.keras
 NLP/binary_2gram.keras
