@@ -11,5 +11,5 @@
     - Xception
     - SENet
 4. [使用Keras的预训练模型](pretrained_model.ipynb)
-5. [迁徙学习的预训练模型](transfer_learning.ipynb)
+5. [迁徙学习的预训练模型](transfer_learning.py)
 6. [分类和定位](localization.py)
