@@ -5,3 +5,4 @@ kNN?
 - non-stop surrounded by stop
 - relevance of feature
 - singular case very far away from non singular
+
