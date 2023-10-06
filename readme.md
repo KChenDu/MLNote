@@ -1,3 +1,4 @@
 - [概率与信息论](probability_and_information_theory.md)
 - [线性模型](linear_model/readme.md)
+- [kNN](kNN/readme.md)
 - [NLP](NLP/readme.md)
