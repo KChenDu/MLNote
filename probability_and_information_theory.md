@@ -1,7 +1,6 @@
 1. 概率分布
     1. 离散型变量和概率质量函数
-        - 均匀分布：$P(X = x_i) = \frac1k$
-        $$\sum_iP(X = x_i) = \sum_i\frac1k = \frac kk = 1$$
+        - 均匀分布：$P(X = x_i) = \frac1k \Rightarrow \sum_iP(X = x_i) = \sum_i\frac1k = \frac kk = 1$
     2. 边缘概率
         - 求和法则：
             $$\forall x \in X, P(X = x) = \sum_y P(X = x, Y = y)$$
@@ -25,12 +24,17 @@
         $$Cov(x_i, x_i) = Var(x_i)$$
 6. 常用概率分布
     1. Bernoulli分布
-        $$P(X = 1) = \phi$$
-        $$P(X = 0) = 1 - \phi$$
-        $$P(X = x) = \phi^x(1 - \phi)^{1 - x}$$
-        $$E[X] = \phi$$
-        $$Var(X) = \phi(1 - \phi)$$
-    2. Multinoulli分布：？？？
+        $$\begin{cases}
+            P(X = 1) = \phi \\
+            P(X = 0) = 1 - \phi
+        \end{cases}
+        \Rightarrow
+        \begin{cases}
+            P(X = x) = \phi^x(1 - \phi)^{1 - x} \\
+            E[X] = \phi \\
+            Var(X) = \phi(1 - \phi)
+        \end{cases}$$
+    2. Multinoulli分布：在具有$k$个不同状态的单个离散型随机变量上的分布，其中$k$是一个有限值
     3. 高斯分布：
         $$\mathcal N(x; \mu, \sigma^2) = \sqrt{\frac1{2\pi\sigma^2}}\exp(-\frac1{2\sigma^2}(x - \mu)^2) \Rightarrow \mathcal N(x; \mu, \beta^{-1}) = \sqrt{\frac\beta{2\pi}}\exp(-\frac12\beta(x - \mu)^2)$$
         - 多维正态分布：$\mathcal N(\mathbf x; \mathbf\mu, \mathbf\Sigma) = \sqrt{\frac1{(2\pi)^n\det \mathbf\Sigma}}\exp(-\frac12(\mathbf x - \mathbf\mu)^\top\mathbf\Sigma^{-1}(\mathbf x - \mathbf\mu)) \Rightarrow \mathcal N(\mathbf x; \mathbf\mu, \mathbf\beta^{-1}) = \sqrt{\frac{\det\mathbf\beta}{(2\pi)^n}}\exp(-\frac12(\mathbf x - \mathbf\mu)^\top\mathbf\beta(\mathbf x - \mathbf\mu))$
