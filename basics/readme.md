@@ -33,5 +33,5 @@
         - 正则化项：$\Omega(\mathbf\omega) = \mathbf\omega^\top\mathbf\omega$
         1. [岭回归](ridge.ipynb)
         2. [Lasso回归](lasso.ipynb)
-        3. 弹性网络
-        4. 提前停止
+        3. [弹性网络](elastic_net.ipynb)
+        4. [提前停止](early_stopping.py)
