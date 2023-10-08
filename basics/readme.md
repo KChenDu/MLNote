@@ -35,3 +35,18 @@
         2. [Lasso回归](lasso.ipynb)
         3. [弹性网络](elastic_net.ipynb)
         4. [提前停止](early_stopping.py)
+6. 最大似然估计
+    $$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}p_{\mathrm{model}}(\mathbb X; \mathbf\theta) = \argmax_{\mathbf\theta}\prod_{i = 1}^m p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m \log p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\mathbb E_{\mathbf x \sim \hat p_{\mathrm{data}}}  \log p_{\mathrm{model}}(\mathbf x; \mathbf\theta)$$
+    1. 条件对数似然
+        $$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}P(\mathbf Y | \mathbf X; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m\log P(\mathbf y^{(i)} | \mathbf x^{(i)}; \mathbf\theta)$$
+    2. 最大似然的性质
+        - 当样本数目$m \rightarrow \infty$时，就收敛而言是最好的渐进估计
+        - 在合适的条件下，最大似然估计具有一致性：
+            - 真实分布$p_{\mathrm{data}}$必须在模型族$p_{\mathrm{model}}(·; \mathbf\theta)$中
+            - 真实分布$p_{\mathrm{data}}$必须刚好对应一个$\mathbf\theta$值
+7. 贝叶斯统计
+    $$p(\mathbf\theta | x^{(1)}, ..., x^{(m)}) = \frac{p(x^{(1)}, ..., x^{(m)} | \mathbf\theta)p(\mathbf\theta)}{p(x^{(1)}, ..., x^{(m)})} \Rightarrow p(x^{(m + 1)} | x^{(1)}, ..., x^{(m)}) = \int p(x^{(m + 1)} | \mathbf\theta)p(\mathbf\theta | x^{(1)}, ..., x^{(m)})\mathrm d\mathbf\theta$$
+    - 不像最大似然方法预测时使用$\mathbf\theta$的点估计，贝叶斯方法使用$\mathbf\theta$的全分布
+    - 贝叶斯方法和最大似然方法的第二个最大区别是由贝叶斯先验分布造成的
+8. 最大后验（MAP）估计
+    $$\mathbf\theta_{\mathrm{MAP}} = \argmax_{\mathbf\theta}p(\mathbf\theta | \mathbf x) = \argmax_{\mathbf\theta}\log p(\mathbf x | \mathbf\theta) + \log p(\mathbf\theta)$$
