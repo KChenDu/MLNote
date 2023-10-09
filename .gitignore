@@ -1,4 +1,5 @@
 .idea
+.obsidian
 books
 NLP/aclImdb
 NLP/binary_1gram.keras
