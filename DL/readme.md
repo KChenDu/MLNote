@@ -1,1 +1,3 @@
-- [Bayesian Deep Learning](bayesian_deep_learning.md)
+- [蒙特卡罗方法](monte_carlo.md)
+
+[返回](../readme.md)
