@@ -35,18 +35,39 @@
         2. [Lasso回归](lasso.ipynb)
         3. [弹性网络](elastic_net.ipynb)
         4. [提前停止](early_stopping.py)
-6. 最大似然估计
-    $$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}p_{\mathrm{model}}(\mathbb X; \mathbf\theta) = \argmax_{\mathbf\theta}\prod_{i = 1}^m p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m \log p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\mathbb E_{\mathbf x \sim \hat p_{\mathrm{data}}}  \log p_{\mathrm{model}}(\mathbf x; \mathbf\theta)$$
-    1. 条件对数似然
-        $$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}P(\mathbf Y | \mathbf X; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m\log P(\mathbf y^{(i)} | \mathbf x^{(i)}; \mathbf\theta)$$
-    2. 最大似然的性质
-        - 当样本数目$m \rightarrow \infty$时，就收敛而言是最好的渐进估计
-        - 在合适的条件下，最大似然估计具有一致性：
+6. 贝叶斯决策论
+    
+    假设有$N$种可能的类别标记，即$\mathcal Y = {c_1, c_2, ..., c_N}$，$\lambda_{ij}$是将一个真实标记为$c_j$的样本误分类为$c_i$所产生的损失
+    - 期望损失：$R(c_i | \mathrm x) = \sum_{j = 1}^N\lambda_{ij}P(c_j | \mathbf x)$
+    - 总体风险：$R(h) = \mathbb E_x[R(h(\mathbf x) | \mathbf x)] \Rightarrow h^\ast(\mathbf x) = \argmin_{c \in \mathcal y} R(c | \mathbf x)$
+    $$\lambda_{ij} =
+        \begin{cases}
+        0\text{, if }i = j \\
+        1\text{, otherwise}
+    \end{cases}
+    \Rightarrow R(c | \mathbf x) = 1 - P(c | \mathbf x) \Rightarrow h^\ast(\mathbf x) = \argmax_{c \in \mathcal Y}P(c | \mathbf x)$$
+    $$P(c | \mathbf x) = \frac{P(\mathbf x, c)}{P(\mathbf x)} = \frac{P(c)P(\mathbf x | c)}{P(\mathbf x)}$$
+    - $P(c)$是类先验概率；$P(\mathbf x | c)$是样本$\mathbf x$相对于类标记$c$的类条件概率；$P(\mathbf x)$是用于归一化的证据因子
+7. 最大似然估计
+    $$P(D_c | \theta_c) = \prod_{x \in D_c}P(\mathbf x | \mathbf\theta_c) \Rightarrow\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}p_{\mathrm{model}}(\mathbb X; \mathbf\theta) = \argmax_{\mathbf\theta}\prod_{i = 1}^m p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m \log p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\mathbb E_{\mathbf x \sim \hat p_{\mathrm{data}}}  \log p_{\mathrm{model}}(\mathbf x; \mathbf\theta)$$
+    1. 对数似然：$LL(\theta_c) = \log P(D_c | \mathbf\theta_c) = \sum_{x \in D_c}\log P(\mathbf x | \mathbf\theta_c) \Rightarrow \hat{\mathbf\theta}_c = \argmax LL(\mathbf\theta_c)$
+    2. 条件对数似然：$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}P(\mathbf Y | \mathbf X; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m\log P(\mathbf y^{(i)} | \mathbf x^{(i)}; \mathbf\theta)$
+    3. 最大似然的性质
+        1. 当样本数目$m \rightarrow \infty$时，就收敛而言是最好的渐进估计
+        2. 在合适的条件下，最大似然估计具有一致性：
             - 真实分布$p_{\mathrm{data}}$必须在模型族$p_{\mathrm{model}}(·; \mathbf\theta)$中
             - 真实分布$p_{\mathrm{data}}$必须刚好对应一个$\mathbf\theta$值
-7. 贝叶斯统计
+    - 在连续属性情形下，假设概率密度函数$p(\mathbf x | c) \sim \mathcal N(\mathbf \mu_c, \mathbf\sigma_c^2)$，则参数$\mathbf \mu_c$和$\mathbf\sigma_c^2$的极大似然估计为
+        $$\sum_{i = 1}m\log p(y^{(i)} | \mathbf{x}^{(i)}; \mathbf\theta) = -m\log\sigma - \frac m2\log(2\pi) - \sum_{i = 1}^m\frac{||\hat y^{(i)} - y^{(i)}||}{2\sigma^2} \Rightarrow
+        \begin{cases}
+            \mathbf\mu_c = \frac1{|D_c|}\sum_{\mathbf x \in D_c}\mathbf x \\
+            \mathbf\sigma_c^2 = \frac1{|D_c|}\sum_{\mathbf x \in D_c}(\mathbf x - \hat{\mathbf\mu_c})(\mathbf x - \hat{\mathbf\mu_c})^\top \\
+            \mathrm{MSE}_{\mathrm{train}} = \frac1m\sum_{i = 1}^m||\hat y^{(i)} - y^{(i)}||^2
+        \end{cases}
+        $$
+8. 贝叶斯统计
     $$p(\mathbf\theta | x^{(1)}, ..., x^{(m)}) = \frac{p(x^{(1)}, ..., x^{(m)} | \mathbf\theta)p(\mathbf\theta)}{p(x^{(1)}, ..., x^{(m)})} \Rightarrow p(x^{(m + 1)} | x^{(1)}, ..., x^{(m)}) = \int p(x^{(m + 1)} | \mathbf\theta)p(\mathbf\theta | x^{(1)}, ..., x^{(m)})\mathrm d\mathbf\theta$$
     - 不像最大似然方法预测时使用$\mathbf\theta$的点估计，贝叶斯方法使用$\mathbf\theta$的全分布
     - 贝叶斯方法和最大似然方法的第二个最大区别是由贝叶斯先验分布造成的
-8. 最大后验（MAP）估计
+9. 最大后验（MAP）估计
     $$\mathbf\theta_{\mathrm{MAP}} = \argmax_{\mathbf\theta}p(\mathbf\theta | \mathbf x) = \argmax_{\mathbf\theta}\log p(\mathbf x | \mathbf\theta) + \log p(\mathbf\theta)$$

@@ -17,11 +17,11 @@
         $$E[f(x)] = \sum_x P(x)f(x)$$
         $$E[f(x)] = \int p(x)f(x)\mathrm dx$$
         $$E[\alpha f(x) + \beta g(x)] = \alpha E[f(x)] + \beta E[g(x)]$$
-    - 方差：$Var(f(x)) = E[(f(x) - E[f(x)])^2]$
-    - 协方差：$Cov(f(x), g(y)) = E[(f(x) - E[f(x)])(g(y) - E[g(y)])]$
+    - 方差：$\mathrm{Var}(f(x)) = E[(f(x) - E[f(x)])^2]$
+    - 协方差：$\mathrm{Cov}(f(x), g(y)) = E[(f(x) - E[f(x)])(g(y) - E[g(y)])]$
     - 协方差矩阵：
-        $$Cov(x)_{i, j} = Cov(x_i, x_j)$$
-        $$Cov(x_i, x_i) = Var(x_i)$$
+        $$\mathrm{Cov}(x)_{i, j} = \mathrm{Cov}(x_i, x_j)$$
+        $$\mathrm{Cov}(x_i, x_i) = \mathrm{Var}(x_i)$$
 6. 常用概率分布
     1. Bernoulli分布
         $$\begin{cases}
@@ -32,7 +32,7 @@
         \begin{cases}
             P(X = x) = \phi^x(1 - \phi)^{1 - x} \\
             E[X] = \phi \\
-            Var(X) = \phi(1 - \phi)
+            \mathrm{Var}(X) = \phi(1 - \phi)
         \end{cases}$$
     2. Multinoulli分布：在具有$k$个不同状态的单个离散型随机变量上的分布，其中$k$是一个有限值
     3. 高斯分布：
