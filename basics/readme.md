@@ -50,7 +50,7 @@
     - $P(c)$是类先验概率；$P(\mathbf x | c)$是样本$\mathbf x$相对于类标记$c$的类条件概率；$P(\mathbf x)$是用于归一化的证据因子
 7. 最大似然估计
     $$P(D_c | \theta_c) = \prod_{x \in D_c}P(\mathbf x | \mathbf\theta_c) \Rightarrow\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}p_{\mathrm{model}}(\mathbb X; \mathbf\theta) = \argmax_{\mathbf\theta}\prod_{i = 1}^m p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m \log p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\mathbb E_{\mathbf x \sim \hat p_{\mathrm{data}}}  \log p_{\mathrm{model}}(\mathbf x; \mathbf\theta)$$
-    1. 对数似然：$LL(\theta_c) = \log P(D_c | \mathbf\theta_c) = \sum_{x \in D_c}\log P(\mathbf x | \mathbf\theta_c) \Rightarrow \hat{\mathbf\theta}_c = \argmax LL(\mathbf\theta_c)$
+    1. 对数似然：$LL(\theta_c) = \log P(D_c | \mathbf\theta_c) = \sum_{x \in D_c}\log P(\mathbf x | \mathbf\theta_c) \Rightarrow \hat{\mathbf\theta}_c = \argmax_{\mathbf\theta_c} LL(\mathbf\theta_c)$
     2. 条件对数似然：$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}P(\mathbf Y | \mathbf X; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m\log P(\mathbf y^{(i)} | \mathbf x^{(i)}; \mathbf\theta)$
     3. 最大似然的性质
         1. 当样本数目$m \rightarrow \infty$时，就收敛而言是最好的渐进估计
