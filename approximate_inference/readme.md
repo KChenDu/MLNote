@@ -27,7 +27,8 @@
         ![HM](Metropolis-Hastings.png 'Metropolis-Hastings')
         $$p(\mathbf x^{t - 1})Q(\mathbf x^\ast | \mathbf x^{t - 1})A(\mathbf x^\ast | \mathbf x^{t - 1}) = p(\mathbf x^\ast)Q(\mathbf x^{t - 1} | \mathbf x^\ast)A(\mathbf x^{t - 1} | \mathbf x^\ast)$$
     - 接受率：$A(\mathbf x^\ast | \mathbf x^{t - 1}) = \min(1, \frac{p(\mathbf x^\ast)Q(\mathbf x^{t - 1} | \mathbf x^\ast)}{p(\mathbf x^{t - 1})Q(\mathbf x^\ast | \mathbf x^{t - 1})})$
-    - 马尔可夫链的计算代价很高，主要源于达到均衡分布前需要磨合的时间以及在达到均衡分布之后从一个样本转移到另一个足够无关的样本所需要的时间
-    - 另一个难点是我们无法预先知道马尔可夫链需要运行多少步才能达到均衡分布
+    - 难点：
+        - 马尔可夫链的计算代价很高，主要源于达到均衡分布前需要磨合的时间以及在达到均衡分布之后从一个样本转移到另一个足够无关的样本所需要的时间
+        - 另一个难点是我们无法预先知道马尔可夫链需要运行多少步才能达到均衡分布
 
 [返回](readme.md)

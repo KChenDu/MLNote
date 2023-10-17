@@ -58,7 +58,7 @@
             - 真实分布$p_{\mathrm{data}}$必须在模型族$p_{\mathrm{model}}(·; \mathbf\theta)$中
             - 真实分布$p_{\mathrm{data}}$必须刚好对应一个$\mathbf\theta$值
     - 在连续属性情形下，假设概率密度函数$p(\mathbf x | c) \sim \mathcal N(\mathbf \mu_c, \mathbf\sigma_c^2)$，则参数$\mathbf \mu_c$和$\mathbf\sigma_c^2$的极大似然估计为
-        $$\sum_{i = 1}m\log p(y^{(i)} | \mathbf{x}^{(i)}; \mathbf\theta) = -m\log\sigma - \frac m2\log(2\pi) - \sum_{i = 1}^m\frac{||\hat y^{(i)} - y^{(i)}||}{2\sigma^2} \Rightarrow
+        $$\sum_{i = 1}m\log p(y^{(i)} | \mathbf{x}^{(i)}; \mathbf\theta) = -m\log\sigma - \frac m2\log(2\pi) - \sum_{i = 1}^m\frac{||\hat y^{(i)} - y^{(i)}||^2}{2\sigma^2} \Rightarrow
         \begin{cases}
             \mathbf\mu_c = \frac1{|D_c|}\sum_{\mathbf x \in D_c}\mathbf x \\
             \mathbf\sigma_c^2 = \frac1{|D_c|}\sum_{\mathbf x \in D_c}(\mathbf x - \hat{\mathbf\mu_c})(\mathbf x - \hat{\mathbf\mu_c})^\top \\
