@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error
 from copy import deepcopy
 
 
-IMAGES_PATH = Path() / "images" / "training_linear_models"
+IMAGES_PATH = Path() / "images"
 IMAGES_PATH.mkdir(parents=True, exist_ok=True)
 
 
