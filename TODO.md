@@ -27,3 +27,7 @@ COMP80
             ...
     ```
     P((ex, ey) | v1, ..., vn) = ?
+
+COMP137
+
+pass-data: in image inference, one can check pass-data(ex: proportion of person face in dataset)
