@@ -2,6 +2,7 @@
 - [机器学习基础](basics/readme.md)
 - [近似推断](approximate_inference/readme.md)
 - [线性模型](linear_models/readme.md)
+- [支持向量机](SVM/readme.md)
 - [kNN](kNN.ipynb)
 - [概率图模型](graphical_models/readme.md)
 - [NLP](NLP/readme.md)

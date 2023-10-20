@@ -12,7 +12,12 @@
 	\end{cases}
 	\Rightarrow \max_{\mathbf\alpha}\sum_{i = 1}^m\alpha_i - \frac12\sum_{i = 1}^m\sum_{j = 1}^m\alpha_i\alpha_jy_iy_j\mathbf x_i^\top\mathbf x_j\text{ s.t. }\sum_{i = 1}^ma_iy_i = 0\text{, }\alpha_i \ge 0\text{, }i = 1, 2, ..., m \Rightarrow f(\mathbf x) = \mathbf w^\top\mathbf x + b = \sum_{i = 1}^m\alpha_iy_i\mathbf x_i^\top\mathbf x + b$$
 	- KTT条件：$\begin{cases}\alpha_i \ge 0; \\ y_if(\mathbf x_i) - 1 \ge 0 \\ \alpha_i(y_if(\mathbf x_i) - 1) = 0\end{cases}$
-3. 核函数
+	SMO不断执行如下两个步骤直至收敛：
+		- 选取一对需更新的变量$\alpha_i$和$\alpha_j$
+		- 固定$\alpha_i$和$\alpha_j$以外的参数，求解式获得更新后的$\alpha_i$和$\alpha_j$
+		$$\alpha_iy_i + \alpha_jy_j = c\text{, }\alpha_i \ge 0\text{, }\alpha_j \ge 0\text{, }c = -\sum_{k \neq i, j}\alpha_ky_k$$
+	$$y_s(\sum_{i \in S}\alpha_iy_i\mathbf x_i^\top\mathbf x_s + b) = 1 \Rightarrow b = \frac1{|S|}\sum_{s \in S}(y_s - \sum_{i \in S}\alpha_iy_i\mathbf x_i^\top\mathbf x_s)$$
+1. 核函数
 	$$f(x) = \mathbf w^\top\phi(\mathbf x) + b$$
 	$$\min_{\mathbf w, b}\frac{||\mathbf w||^2}2\text{ s.t. }y_i(\mathbf w^\top\phi(\mathbf x_i) + b) \ge 1\text{, }i = 1, 2, ..., m \Rightarrow \max_{\mathbf\alpha}\sum_{i = 1}^m\alpha_i - \frac12\sum_{i = 1}^m\sum_{j = 1}^m\alpha_i\alpha_jy_iy_j\phi(\mathbf x_i)^\top\phi(\mathbf x_j)\text{ s.t. }\sum_{i = 1}^m\alpha_iy_i = 0\text{, }\alpha_i \ge 0\text{, }i = 1, 2, ..., m$$
 	$$\kappa(\mathbf x_i, \mathbf x_j) = \langle\phi(\mathbf x_i), \phi(\mathbf x_j)\rangle = \phi(\mathbf x_i)^\top\phi(x_j) \Rightarrow \max_{\mathbf\alpha}\sum_{i = 1}^m\alpha_i - \frac12\sum_{i = 1}^m\sum_{j = 1}^m\alpha_i\alpha_jy_iy_j\kappa(\mathbf x_i, \mathbf x_j)\text{ s.t. }\sum_{i = 1}^m\alpha_iy_i = 0\text{, }\alpha_i \ge 0\text{, }i = 1, 2, ..., m \Rightarrow f(\mathbf x) = \mathbf w^\top\mathbf \phi(x) + b = \sum_{i = 1}^m\alpha_iy_i\phi(\mathbf x_i)^\top\phi(\mathbf x) + b = \sum_{i = 1}^m\alpha_iy_i\kappa(\mathbf x, \mathbf x_i) + b$$
