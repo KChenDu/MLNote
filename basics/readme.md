@@ -41,7 +41,7 @@
     - 期望损失：$R(c_i | \mathrm x) = \sum_{j = 1}^N\lambda_{ij}P(c_j | \mathbf x)$
     - 总体风险：$R(h) = \mathbb E_x[R(h(\mathbf x) | \mathbf x)] \Rightarrow h^\ast(\mathbf x) = \argmin_{c \in \mathcal y} R(c | \mathbf x)$
     $$\lambda_{ij} =
-        \begin{cases}
+    \begin{cases}
         0\text{, if }i = j \\
         1\text{, otherwise}
     \end{cases}
