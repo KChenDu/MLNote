@@ -38,6 +38,9 @@
     3. 高斯分布：
         $$\mathcal N(x; \mu, \sigma^2) = \sqrt{\frac1{2\pi\sigma^2}}\exp(-\frac1{2\sigma^2}(x - \mu)^2) \Rightarrow \mathcal N(x; \mu, \beta^{-1}) = \sqrt{\frac\beta{2\pi}}\exp(-\frac12\beta(x - \mu)^2)$$
         - 多维正态分布：$\mathcal N(\mathbf x; \mathbf\mu, \mathbf\Sigma) = \sqrt{\frac1{(2\pi)^n\det \mathbf\Sigma}}\exp(-\frac12(\mathbf x - \mathbf\mu)^\top\mathbf\Sigma^{-1}(\mathbf x - \mathbf\mu)) \Rightarrow \mathcal N(\mathbf x; \mathbf\mu, \mathbf\beta^{-1}) = \sqrt{\frac{\det\mathbf\beta}{(2\pi)^n}}\exp(-\frac12(\mathbf x - \mathbf\mu)^\top\mathbf\beta(\mathbf x - \mathbf\mu))$
+    6. 分布的混合
+        $$P(x) = P(c = i)P(x | c = i)$$
+        混合模型使我们能够一瞥以后会用到的一个非常重要的概念——潜变量。一个非常强大且常见的混合模型是高斯混合模型，它的组件$p(x | c = i)$是高斯分布
 7. 常用函数的有用性质
 8. 贝叶斯规则：$P(X | Y) = \frac{P(X)P(Y | X)}{P(Y)}$
 

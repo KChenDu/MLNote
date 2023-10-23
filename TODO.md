@@ -30,4 +30,7 @@ COMP80
 
 COMP137
 
-pass-data: in image inference, one can check pass-data(ex: proportion of person face in dataset)
+LAB2
+
+COMP171
+ Go through Ian
