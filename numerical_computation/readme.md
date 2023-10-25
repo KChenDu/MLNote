@@ -21,6 +21,12 @@
     $$H(f)(\mathbf x)_{i, j} = \frac{\partial^2}{\partial x_j\partial x_i}f(\mathbf x)$$
 
     我们可以通过（方向）二阶导数预期一个梯度下降步骤能表现得多好。我们在当前点$x^{(0)}$处作函数$f(x)$的近似二阶泰勒级数：
-    $$$$
+    $$f(\mathbf x) \approx f(\mathbf x^{(0)}) + (\mathbf x - \mathbf x^{(0)})^\top\mathbf g + \frac12(\mathbf x - \mathbf x^{(0)})^\top H(\mathbf x - \mathbf x^{(0)}) \Rightarrow f(\mathbf x^{(0)} - \epsilon \mathbf g) \approx f(\mathbf x^{(0)}) - \epsilon \mathbf g^\top\mathbf g + \frac12\epsilon^2\mathbf g^\top H\mathbf g$$
+    - 当$\mathbf g^\top H\mathbf g$为正时，通过计算可得，使近似泰勒级数下降最多的最优步长为$\epsilon^\ast =\frac{\mathbf g^\top\mathbf g}{\mathbf g^\top H\mathbf g}$
+    - 牛顿法：$f(\mathbf x) \approx f(\mathbf x^{(0)}) + (\mathbf x - \mathbf x^{(0)})^\top\nabla_{\mathbf x}f(\mathbf x^{(0)}) + \frac12(\mathbf x - \mathbf x^{(0)})^\top H(f)(\mathbf x^{(0)})(\mathbf x - \mathbf x^{(0)})$
+    
+    在深度学习的背景下，限制函数满足Lipschitz连续或其导数Lipschitz连续可以获得一些保证。Lipschitz连续函数的变化速度以Lipschitz常数$\mathcal L$为界：$\forall\mathbf x, \forall\mathbf y, |f(\mathbf x) - f(\mathbf y) \le \mathcal L\|\mathbf x - \mathbf y\|_2$
+
+    凸优化通过更强的限制提供更多的保证
 
 [返回](../readme.md)
