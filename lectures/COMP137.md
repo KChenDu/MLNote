@@ -7,3 +7,6 @@ Week4
     study dual LR
 
     
+week4
+
+    linear rgression: the boundary where we don't have train datas (slide 26) should be more incertain. This is a reason of using bayesian regression
