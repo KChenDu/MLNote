@@ -85,7 +85,10 @@
     
     自信息：$I(x) = -\log P(x)$
     
-    我们可以用**香农熵**来对整个概率分布中的不确定性总量进行量化：
-    $$H(x) = \mathbb E_{x \sim P}(I(x)) = -\mathbb E_{x \sim P}(\log P(x))$$
+    我们可以用**香农熵**来对整个概率分布中的不确定性总量进行量化：$H(x) = \mathbb E_{X \sim P}(I(x)) = -\mathbb E_{X \sim P}(\log P(x))$
+
+    如果我们对于同一个随机变量$X$有两个单独的概率分布$P(X)$和$Q(X)$，我们可以使用KL散度来衡量这两个分布的差异：$D_{\mathrm{KL}} = \mathbb E_{X \sim P}[\log\frac{P(x)}{Q(x)}] = \mathbb E_{X \sim P}[\log P(x) - \log Q(x)]$
+
+    交叉熵：$H(P, Q) = -\mathbb E_{X \sim P}\log Q(x)$
 
 [返回](readme.md)
