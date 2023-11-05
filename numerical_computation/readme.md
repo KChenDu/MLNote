@@ -27,6 +27,18 @@
     
     在深度学习的背景下，限制函数满足Lipschitz连续或其导数Lipschitz连续可以获得一些保证。Lipschitz连续函数的变化速度以Lipschitz常数$\mathcal L$为界：$\forall\mathbf x, \forall\mathbf y, |f(\mathbf x) - f(\mathbf y) \le \mathcal L\|\mathbf x - \mathbf y\|_2$
 
-    凸优化通过更强的限制提供更多的保证
+    最成功的特定优化领域或许是**凸优化**。凸优化通过更强的限制提供更多的保证
+5. 约束优化
+
+    广义Lagrangian可以如下定义：$L(\mathbf x, \mathbf\lambda ,\mathbf\alpha) = f(\mathbf x) + \sum_i\lambda_ig^{(i)}(\mathbf x) + \sum_j\alpha_jh^{(j)}(\mathbf x)$
+
+    要解决约束最大化问题，我们可以构造$−f(x)$的广义Lagrange函数，从而导致以下优化问题：$\min_{\mathbf x}\max_{\mathbf\lambda}\max_{\mathbf\alpha, \mathbf\alpha \ge 0}-f(\mathbf x) + \sum_i\lambda_ig^{(i)}(\mathbf x) + \sum_j\alpha_jh^{(j)}(\mathbf x)$
+
+    我们也可将其转换为在外层最大化的问题：$\max_{\mathbf x}\min_{\mathbf\lambda}\min_{\mathbf\alpha, \mathbf\alpha \ge 0}f(\mathbf x) + \sum_i\lambda_ig^{(i)}(\mathbf x) - \sum_j\alpha_jh^{(j)}(\mathbf x)$
+
+    我们可以使用一组简单的性质来描述约束优化问题的最优点。这些性质称为**Karush–Kuhn–Tucker**（KKT）条件。这些是确定一个点是最优点的必要条件，但不一定是充分条件。这些条件是：
+    - 广义Lagrangian的梯度为零
+    - 所有关于$\mathbf x$和KKT乘子的约束都满足
+    - 不等式约束显示的“互补松弛性”：$\mathbf\alpha \odot h(\mathbf x) = 0$。
 
 [返回](../readme.md)
