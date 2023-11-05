@@ -24,7 +24,7 @@
     $$\mathbb E_p[f] = \int f(x)p(x)\mathrm dx \Rightarrow \hat f = \frac1N\sum_{i = 1}^Nf(x_i) \Rightarrow \tilde p(f) = \frac1N\sum_{i = 1}^Nf(\mathbf x_i)$$
     - 平稳条件：$p(\mathbf x^t)T(\mathbf x^{t - 1} | \mathbf x^t) = p(\mathbf x^{t - 1})T(\mathbf x^t | \mathbf x^{t - 1})$
     - Metropolis-Hastings算法：
-        ![MH](Metropolis-Hastings.png 'Metropolis-Hastings')
+        ![Metropolis-Hastings](Metropolis-Hastings.png 'Metropolis-Hastings')
         $$p(\mathbf x^{t - 1})Q(\mathbf x^\ast | \mathbf x^{t - 1})A(\mathbf x^\ast | \mathbf x^{t - 1}) = p(\mathbf x^\ast)Q(\mathbf x^{t - 1} | \mathbf x^\ast)A(\mathbf x^{t - 1} | \mathbf x^\ast)$$
     - 接受率：$A(\mathbf x^\ast | \mathbf x^{t - 1}) = \min(1, \frac{p(\mathbf x^\ast)Q(\mathbf x^{t - 1} | \mathbf x^\ast)}{p(\mathbf x^{t - 1})Q(\mathbf x^\ast | \mathbf x^{t - 1})})$
     - 难点：

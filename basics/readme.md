@@ -71,3 +71,10 @@
     - 贝叶斯方法和最大似然方法的第二个最大区别是由贝叶斯先验分布造成的
 9. 最大后验（MAP）估计
     $$\mathbf\theta_{\mathrm{MAP}} = \argmax_{\mathbf\theta}p(\mathbf\theta | \mathbf x) = \argmax_{\mathbf\theta}\log p(\mathbf x | \mathbf\theta) + \log p(\mathbf\theta)$$
+10. [随机梯度下降](../DL/sgd.ipynb)
+
+    在算法的每一步，我们从训练集中均匀抽出一**小批量**样本$\mathbb B = \{\mathbf x^{(1)}, \dots, \mathbf x^{(m^\prime)}\}$。梯度的估计可以表示成$\mathbf g = \frac1{m^\prime}\nabla_{\mathbf\theta}\sum_{i = 1}^{m^\prime}L(\mathbf x^{(i)}, y^{(i)}, \mathbf\theta)$
+
+    然后，随机梯度下降算法使用如下的梯度下降估计：$\mathbf\theta \leftarrow \mathbf\theta - \epsilon\mathbf g$
+
+[返回](../readme.md)
