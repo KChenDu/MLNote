@@ -2,6 +2,7 @@
 .idea
 .obsidian
 books
+playground.py
 NLP/aclImdb
 NLP/binary_1gram.keras
 NLP/binary_2gram.keras

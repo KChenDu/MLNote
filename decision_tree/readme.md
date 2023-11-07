@@ -12,5 +12,8 @@
 		属性$a$的基尼指数定义为：$\mathrm{Gini\_index}(D, a) = \sum_{v = 1}^V\frac{|D^v|}{|D|}Gini(D^v) \Rightarrow a^\ast = \argmin_{a \in A}\mathrm{Gini\_index}(D, a)$
 4. [剪枝处理](regularization_hyperparameters.ipynb)
 5. [连续值处理](regression.ipynb)
+6. 缺失值处理
+7. 多变量决策树
+8. [不稳定性](sensitivity_to_axis_orientation.ipynb)
 
 [返回](../readme.md)
