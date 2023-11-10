@@ -1,3 +1,9 @@
+2. 神经网络优化中的挑战
+    1. 病态
+    2. 局部极小值
+    3. 高原、鞍点和其他平坦区域
+    4. 悬崖和梯度爆炸
+    5. 长期依赖
 3. 基本算法
     1. [随机梯度下降](sgd.ipynb)
         - 保证SGD收敛的一个充分条件是$\sum_{k = 1}^\infty\epsilon_k = \infty$且$\sum_{k = 1}^\infty\epsilon_k^2 < \infty$
@@ -19,7 +25,7 @@
        ![RMSProp](RMSProp.png "RMSProp")
     3. Adam
         - 首先，在Adam中，动量直接并入了梯度一阶矩（指数加权）的估计。将动量加入RMSProp最直观的方法是将动量应用于缩放后的梯度。其次，Adam包括偏置修正，修正从原点初始化的一阶矩（动量项）和（非中心的）二阶矩的估计
-       ![RMSProp](Adam.png "Adam")
+       ![Adam](Adam.png "Adam")
 6. 二阶近似方法
     $$J(\mathbf\theta) = \mathbb E_{\mathbf x, y \sim \hat p_{\mathrm{data}}(\mathbf x, y)}[L(f(\mathbf x; \mathbf\theta), y)] = \frac1m\sum_{i= 1}^mL(f(\mathbf x^{(i)}; \mathbf\theta), y^{(i)})$$
     1. 牛顿法

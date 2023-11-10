@@ -8,4 +8,5 @@
 - [集成学习](ensemble_learning/readme.md)
 - [kNN](kNN.ipynb)
 - [概率图模型](graphical_models/readme.md)
+- [深度学习](DL/readme.md)
 - [NLP](NLP/readme.md)
