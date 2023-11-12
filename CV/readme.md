@@ -1,6 +1,6 @@
-1. [卷积层](convolutional_layers.ipynb)
-    1. 滤波器：神经元的权重集
-    2. 堆叠多个特征图：卷积层将多个可训练的滤波器同时应用于其输入，从而使其能够检测出输入中任何位置的多个特性
+1. [卷积网络](cnn.md)
+
+
 2. [池化层](pooling_layers.ipynb)：对输入图像进行下采样，以便减少计算量、内存使用量和参数数量
 3. [CNN架构](cnn.py)
     - LeNet-5
@@ -13,3 +13,5 @@
 4. [使用Keras的预训练模型](pretrained_model.ipynb)
 5. [迁徙学习的预训练模型](transfer_learning.py)
 6. [分类和定位](localization.py)
+
+[返回](../readme.md)
