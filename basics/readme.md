@@ -17,6 +17,36 @@
         - 精度
             $$acc(f; D) = \frac1m\sum_{i = 1}^m\mathbb I(f(\mathbf x_i) = y_i) = 1 - E(f; D)$$
             $$acc(f; D) = \int_{x \sim D}\mathbb I(f(\mathbf x) = y)p(\mathbf x)\mathrm d\mathbf x = 1  - E(f; D)$$
+    2. 查准率、查全率与F1
+        - 查准率：$P = \frac{TP}{TP + FP}$
+        - 查全率：$R = \frac{TP}{TP + FN}$
+
+        查准率和查全率是一对矛盾的度量。一般来说，查准率高时，查全率往往偏低；而查全率高时，查准率往往偏低
+
+        在很多情形下，我们可根据学习器的预测结果对样例进行排序，排在前面的是学习器认为“最可能”是正例的样本，排在最后的则是学习器认为“最不可能”是正例的样本。按此顺序逐个把样本作为正例进行预测，则每次可以计算出当前的查全率、查准率。以查准率为纵轴、查全率为横轴作图，就得到了查准率-查全率曲线，简称“P-R曲线”，显示该曲线的图称为“P-R图”。P-R图直观地显示出学习器在样本总体上的查全率、查准率。在进行比较时，若一个学习器的P-R曲线被另一个学习器的曲线完全“包住”，则可断言后者的性能优于前者。然而，在很多情形下，人们往往仍希望把学习器A与B比出个高低。这时一个比较合理的判据是比较P-R曲线下面积的大小，它在一定程度上表征了学习器在查准率和查全率上取得相对“双高”的比例
+
+        - 平衡点：“查准率 = 查全率”时的取值
+        - F1度量：$F1 = \frac{2 \times P \times R}{P + R} = \frac{2 \times TP}{样例总数 + TP - TN}$
+        
+        
+        F1度量的一般形式——$F_\beta$能让我们表达出对查准率/查全率的不同偏好，它定义为$F_\beta = \frac{(1 + \beta^2) \times P \times R}{(\beta^2 \times P) + R}$
+
+        很多时候我们有多个二分类混淆矩阵，例如进行多次训练/测试，每次得到一个混淆矩阵；或是在多个数据集上进行训练/测试，希望估计算法的“全局”性能；甚或是执行多分类任务，每两两类别的组合都对应一个混淆矩阵；……总之，我们希望在n个二分类混淆矩阵上综合考察查准率和查全率
+        $$
+        \begin{cases}
+            \text{macro-}P = \frac1n\sum_{i = 1}^nP_i \\
+            \text{macro-}R = \frac1n\sum_{i = 1}^nR_i
+        \end{cases}
+        \Rightarrow \text{macro-}F1 = \frac{2 \times \text{macro-}P \times \text{macro-}R}{\text{macro-}P + \text{macro-}R}$$
+        $$
+        \begin{cases}
+            \text{micro-}P = \frac{\overline{TP}}{\overline{TP} + \overline{FP}} \\
+            \text{micro-}R = \frac{\overline{TP}}{\overline{TP} + \overline{FN}}
+        \end{cases}
+        \Rightarrow \text{micro-}F1 = \frac{2 \times \text{micro-}P \times \text{micro-}R}{\text{micro-}P + \text{micro-}R}$$
+    3. ROC与AUC
+        - 真正例率：
+        - 假正例率：
 3. 比较检验
 4. 偏差与方差
     - 学习算法的期望预测：$\bar f(\mathbf x) = \mathbb E_D[f(\mathbf x, D)]$
