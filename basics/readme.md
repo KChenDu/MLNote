@@ -45,8 +45,13 @@
         \end{cases}
         \Rightarrow \text{micro-}F1 = \frac{2 \times \text{micro-}P \times \text{micro-}R}{\text{micro-}P + \text{micro-}R}$$
     3. ROC与AUC
-        - 真正例率：
-        - 假正例率：
+        
+        我们根据学习器的预测结果对样例进行排序，按此顺序逐个把样本作为正例进行预测，每次计算出两个重要量的值，分别以它们为横、纵坐标作图,就得到了“ROC曲线”与P-R曲线使用查准率、查全率为纵、横轴不同，ROC曲线的纵轴是“真正例率”（简称TPR），横轴是“假正例率”（简称FPR），两者分别定义为
+        $$\mathrm{TPR} = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}}$$
+        $$\mathrm{FPR} = \frac{\mathrm{FP}}{\mathrm{TN} + \mathrm{FP}}$$
+        进行学习器的比较时，与P-R图相似，若一个学习器的ROC曲线被另一个学习器的曲线完全“包住”，则可断言后者的性能优于前者；若两个学习器的ROC曲线发生交叉，则难以一般性地断言两者孰优孰劣。此时如果一定要进行比较，则较为合理的判据是比较ROC曲线下的面积，即AUC
+        $$\mathrm{AUC} = \frac12\sum_{i = 1}^{m - 1}(x_{i + 1} - x_i)(y_i + y_{i + i})$$
+        形式化地看，AUC考虑的是样本预测的排序质量，因此它与排序误差有紧密联系。给定$m^+$个正例和$m^-$个反例，令$D^+$和$D^-$分别表示正、反例集合，则排序“损失”定义为$l_\mathrm{rank} = \frac1{m^+m^-}\sum_{\mathbf x^+ \in D^+}\sum_{\mathbf x^- \in D^-}(\mathbb I(f(\mathbf x^+) < f(\mathbf x^-)) + \frac12\mathbb I(f(\mathbf x^+) = f(\mathbf x^-))) \Rightarrow \mathrm{AUC} = 1 - l_\mathrm{rank}$
 3. 比较检验
 4. 偏差与方差
     - 学习算法的期望预测：$\bar f(\mathbf x) = \mathbb E_D[f(\mathbf x, D)]$

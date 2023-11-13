@@ -71,5 +71,55 @@
 	为了满足非负性，指数函数常被用于定义势函数，即$\psi_Q(\mathbf x_Q) = e^{-H_Q(\mathbf x_Q)}$
 	
 	$H_Q(\mathbf x_Q)$是一个定义在变量$\mathbf x_Q$上的实值函数，常见形式为$H_Q(\mathbf x_Q) = \sum_{u, v \in Q, u \neq v}\alpha_{uv}x_ux_v + \sum_{v \in Q}\beta_vx_v$
+4. 条件随机场
+5. 学习与推断
+
+	具体来说，假设图模型所对应的变量集$\mathbf x = \{x_1, x_2, \dots, x_N\}$能分为$\mathbf x_E$和$\mathbf x_F$两个不相交的变量集，推断问题的目标就是计算边际概率$P(\mathbf x_F)$或条件概率$P(\mathbf x_F | \mathbf x_E)$。由条件概率定义有$P(\mathbf x_F | \mathbf x_E) = \frac{P(\mathbf x_E, \mathbf x_F)}{P(\mathbf x_E)} = \frac{P(\mathbf x_E, \mathbf x_F)}{\sum_{\mathbf x_F}P(\mathbf x_E, \mathbf x_F)}$，其中联合概率$P(\mathbf x_E, \mathbf x_F)$可基于概率图模型获得，因此，推断问题的关键就是如何高效地计算边际分布，即$P(\mathbf x_F) = \sum_{\mathbf x_F}P(\mathbf x_E, \mathbf x_F)$
+	
+	1. 变量消去
+		```mermaid
+		graph LR
+			x2((x2))
+			x3((x3))
+
+			x1((x1)) --> x2
+			x2 --> x3
+			x3 --> x4((x4))
+			x3 --> x5((x5))
+		```
+		$$P(x_5) = \sum_{x_4}\sum_{x_3}\sum_{x_2}\sum_{x_1}P(x_1, x_2, x_3, x_4, x_5) = \sum_{x_4}\sum_{x_3}\sum_{x_2}\sum_{x_1}P(x_1)P(x_2 | x_1)P(x_3 | x_2)P(x_4 | x_3)P(x_5 | x_3) = \sum_{x_3}P(x_5 | x_3)\sum_{x_4}P(x_4 | x_3)\sum_{x_2}P(x_3 | x_2)\sum_{x_1}P(x_1)P(x_2 | x_1) = \sum_{x_3}P(x_5 | x_3)\sum_{x_4}P(x_4 | x_3)\sum_{x_2}P(x_3 | x_2)m_{12}(x_2) = \sum_{x_3}P(x_5 | x_3)\sum_{x_4}P(x_4 | x_3)m_{23}(x_3) = \sum_{x_3}P(x_5 | x_3)m_{23}(x_3)\sum_{x_4}P(x_4 | x_3) = \sum_{x_3}P(x_5 | x_3)m_{23}(x_3)m_{43}(x_3) = m_{35}(x_5)$$
+		事实上，上述方法对无向图模型同样适用
+		$$P(x_1, x_2, x_3, x_4, x_5) = \frac1Z\psi_{12}(x_1, x_2)\psi_{23}(x_2, x_3)\psi_{34}(x_3, x_4)\psi_{35}(x_3, x_5) \Rightarrow P(x_5) = \frac1Z\sum_{x_3}\psi_{35}(x_3, x_5)\sum_{x_4}\psi_{34}(x_3, x_4)\sum_{x_2}\psi_{23}(x_2, x_3)\sum_{x_1}\psi_{12}(x_1, x_2) = \frac1Z\sum_{x_3}\psi_{35}(x_3, x_5)\sum_{x_4}\psi_{34}(x_3, x_4)\sum_{x_2}\psi_{23}(x_2, x_3)m_{12}(x_2) = \dots = \frac1Zm_{35}(x_5)$$
+		变量消去法有一个明显的缺点：若需计算多个边际分布，重复使用变量消去法将会造成大量的冗余计算
+	2. 信念传播
+
+		信念传播算法将变量消去法中的求和操作看作一个消息传递过程，较好地解决了求解多个边际分布时的重复计算问题。具体来说，变量消去法通过求和操作$m_{ij}(x_j) = \sum_{x_i}\psi(x_i, x_j)\prod_{k \in n(i) \setminus j}m_{ki}(x_i)$消去变量$x_i$，其中$n(i)$表示结点$x_i$的邻接结点。在信念传播算法中，这个操作被看作从$x_i$向$x_j$传递了一个消息$m_{ij}(x_j)$
+
+		在信念传播算法中，一个结点仅在接收到来自其他所有结点的消息后才能向另一个结点发送消息，且结点的边际分布正比于它所接收的消息的乘积，即$P(x_i) \propto \prod_{k \in n(i)}m_{ki}(x_i)$
+
+		若图结构中没有环，则信念传播算法经过两个步骤即可完成所有消息传递，进而能计算所有变量上的边际分布：
+		- 指定一个根结点，从所有叶结点开始向根结点传递消息，直到根结点收到所有邻接结点的消息
+		- 从根结点开始向叶结点传递消息，直到所有叶结点均收到消息
+		```mermaid
+		graph
+		subgraph 消息传向根结点
+			x21((x2))
+			x31((x3))
+
+			x21 --> |"m21(x1)"| x11((x1)) 
+			x31 --> |"m32(x2)"| x21
+			x41((x4)) --> |"m43(x3)"| x31
+			x51((x5)) --> |"m53(x3)"| x31
+		end
+		subgraph 消息从根结点传出
+			x22((x2))
+			x32((x3))
+
+			x12((x1)) --> |"m12(x1)"| x22
+			x22 --> |"m23(x3)"| x32
+			x32 --> |"m34(x4)"| x42((x4))
+			x32 --> |"m35(x5)"| x52((x5)) 
+		end
+		```
 
 [返回](../readme.md)
