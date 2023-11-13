@@ -85,10 +85,10 @@
     
     自信息：$I(x) = -\log P(x)$
     
-    我们可以用**香农熵**来对整个概率分布中的不确定性总量进行量化：$H(x) = \mathbb E_{X \sim P}(I(x)) = -\mathbb E_{X \sim P}(\log P(x))$
-
-    如果我们对于同一个随机变量$X$有两个单独的概率分布$P(X)$和$Q(X)$，我们可以使用KL散度来衡量这两个分布的差异：$D_{\mathrm{KL}} = \mathbb E_{X \sim P}[\log\frac{P(x)}{Q(x)}] = \mathbb E_{X \sim P}[\log P(x) - \log Q(x)]$
-
-    交叉熵：$H(P, Q) = -\mathbb E_{X \sim P}\log Q(x)$
+    我们可以用**香农熵**来对整个概率分布中的不确定性总量进行量化：$H(x) = \mathbb E_{x \sim P}(I(x)) = -\mathbb E_{x \sim P}(\log P(x))$
+	如果我们对于同一个随机变量$x$有两个单独的概率分布$P(x)$和$Q(x)$，我们可以使用KL散度来衡量这两个分布的差异：$D_{KL}(P\|Q) = \mathbb E_{x \sim P}[\log\frac{P(x)}{Q(x)}] = \mathbb E_{x \sim P}[\log P(x) - \log Q(x)]$
+    
+    在离散型变量的情况下，KL散度衡量的是，当我们使用一种被设计成能够使得概率分布$Q$产生的消息的长度最小的编码，发送包含由概率分布$P$产生的符号的消息时，所需要的额外信息量
+	交叉熵：$H(P, Q) = -\mathbb E_{x \sim P}\log Q(x)$
 
 [返回](readme.md)
