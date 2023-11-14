@@ -1,5 +1,5 @@
 - [概率与信息论](probability_and_information_theory.md)
-- [数值计算](numerical_computaion/readme.md)
+- [数值计算](numerical_computation/readme.md)
 - [机器学习基础](basics/readme.md)
 - [近似推断](approximate_inference/readme.md)
 - [线性模型](linear_models/readme.md)
