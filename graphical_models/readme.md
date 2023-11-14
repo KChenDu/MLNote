@@ -65,8 +65,8 @@
 		xB((xB)) --- xC
 		```
 		$$P(x_A, x_B, x_C) = \frac1Z\psi_{AC}(x_A, x_C)\psi_{BC}(x_B, x_C) \Rightarrow P(x_A, x_B | x_C) = P(x_A | x_C)P(x_B | x_C)$$
-	- 局部马尔可夫性：给定某变量的邻接变量，则该变量条件独立于其他变量。形式化地说，令$V$为图的结点集，$n(v)$为结点$v$在图上的邻接结点，$n^\ast(v) = n(v) \cup \{v\}$，有$\mathbf x_v \perp \mathbf x_{V \backslash n^\ast(v)} | \mathbf x_{n(v)}$
-	- 成对马尔可夫性：给定所有其他变量，两个非邻接变量条件独立。形式化地说，令为图的结点集和边集分别为$V$和$E$，对图中的两个结点$u$和$v$，若$\langle u, v\rangle \notin E$，则$\mathbf x_u \perp \mathbf x_v | \mathbf x_{V \backslash \langle u, v\rangle}$
+	- 局部马尔可夫性：给定某变量的邻接变量，则该变量条件独立于其他变量。形式化地说，令$V$为图的结点集，$n(v)$为结点$v$在图上的邻接结点，$n^\ast(v) = n(v) \cup \{v\}$，有$\mathbf x_v \perp \mathbf x_{V \setminus n^\ast(v)} | \mathbf x_{n(v)}$
+	- 成对马尔可夫性：给定所有其他变量，两个非邻接变量条件独立。形式化地说，令为图的结点集和边集分别为$V$和$E$，对图中的两个结点$u$和$v$，若$\langle u, v\rangle \notin E$，则$\mathbf x_u \perp \mathbf x_v | \mathbf x_{V \setminus \langle u, v\rangle}$
 	
 	为了满足非负性，指数函数常被用于定义势函数，即$\psi_Q(\mathbf x_Q) = e^{-H_Q(\mathbf x_Q)}$
 	
