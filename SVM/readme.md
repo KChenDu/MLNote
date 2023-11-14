@@ -35,7 +35,7 @@
 5. 支持向量回归
 6. 核方法
 	
-	**表示定理**：令$\mathbb H$为核函数$\kappa$对应的再生核希尔伯特空间，$\|h\|_{\mathbb H}$表示$H$空间中关于$h$的范数，对于任意单调递增函数$\Omega: [0, \infty] \rightarrow \mathbb R$和任意非负损失函数$l: \mathbb R \rightarrow [0, \infty]$，优化问题$\min_{h \in \mathbb H}F(h) = \Omega(\|h\|_{\mathbb H}) + l(h(\mathbf x_1), h(\mathbf x_2), ..., h(\mathbf x_m))$的解总可写为$h^\ast(\mathbf x) = \sum_{i = 1}^m\alpha_i\kappa(\mathbf x, \mathbf x_i)$
+	**表示定理**：令$\mathbb H$为核函数$\kappa$对应的再生核希尔伯特空间，$\|h\|_{\mathbb H}$表示$H$空间中关于$h$的范数，对于任意单调递增函数$\Omega: [0, \infty] \rightarrow \mathbb R$和任意非负损失函数$l: \mathbb R \rightarrow [0, \infty]$，优化问题$\min_{h \in \mathbb H}F(h) = \Omega(\|h\|_{\mathbb H}) + l(h(\mathbf x_1), h(\mathbf x_2), ..., h(\mathbf x_m))$的解总可写为$h^*(\mathbf x) = \sum_{i = 1}^m\alpha_i\kappa(\mathbf x, \mathbf x_i)$
 	$$h(\mathbf x) = \mathbf w^\top\phi(\mathbf x) = \sum_{i = 1}^m\alpha_i\kappa(\mathbf x, \mathbf x_i) \Rightarrow \mathbf w = \sum_{i = 1}^m\alpha_i\phi(\mathbf x_i)$$
 
 [返回](../readme.md)

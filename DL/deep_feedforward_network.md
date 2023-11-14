@@ -7,10 +7,10 @@
         2. 学习条件统计量
             $$
             \begin{cases}
-                f^\ast = \argmin_f\mathbb E_{\mathbf x, \mathbf y \sim p_{\mathrm{data}}}\|\mathbf y - f(\mathbf x)\|^2 \\
-                f^\ast = \argmin_f\mathbb E_{\mathbf x, \mathbf y \sim p_{\mathrm{data}}}\|\mathbf y - f(\mathbf x)\|_1
+                f^* = \argmin_f\mathbb E_{\mathbf x, \mathbf y \sim p_{\mathrm{data}}}\|\mathbf y - f(\mathbf x)\|^2 \\
+                f^* = \argmin_f\mathbb E_{\mathbf x, \mathbf y \sim p_{\mathrm{data}}}\|\mathbf y - f(\mathbf x)\|_1
             \end{cases}
-            \Rightarrow f^\ast(\mathbf x) = \mathbb E_{\mathbf y \sim p_{\mathrm{data}}(\mathbf y | \mathbf x)}[y]$$
+            \Rightarrow f^*(\mathbf x) = \mathbb E_{\mathbf y \sim p_{\mathrm{data}}(\mathbf y | \mathbf x)}[y]$$
             可惜的是，均方误差和平均绝对误差在使用基于梯度的优化方法时往往成效不佳。一些饱和的输出单元当结合这些代价函数时会产生非常小的梯度
     2. 输出单元
         1. 用于高斯输出分布的线性单元
