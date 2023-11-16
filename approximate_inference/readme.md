@@ -30,5 +30,9 @@
     - 难点：
         - 马尔可夫链的计算代价很高，主要源于达到均衡分布前需要磨合的时间以及在达到均衡分布之后从一个样本转移到另一个足够无关的样本所需要的时间
         - 另一个难点是我们无法预先知道马尔可夫链需要运行多少步才能达到均衡分布
+4. 变分推断
+	$$p(\mathbf x | \Theta) = \prod_{i = 1}^Np(x_i, \mathbf z | \Theta) \Rightarrow \ln p(\mathbf x | \Theta) = \sum_{i = 1}^N\ln\{\sum_{\mathbf z}p(x_i, \mathbf z | \Theta)\}$$
+	概率模型的参数估计通常以最大化对数似然函数为手段。可使用EM算法：在E步，根据$t$时刻的参数$\Theta_t$对$p(\mathbf z | \mathbf x, \Theta^t)$进行推断，并计算联合似然函数$p(\mathbf x, \mathbf z | \Theta)$；在M步，基于E步的结果进行最大化寻优，即对关于变量$\Theta$的函数$\mathcal Q(\Theta; \Theta^t)$进行最大化从而求取$\Theta^{t + 1} = \argmax_\Theta\mathcal Q(\Theta; \Theta^t) = \argmax_\Theta\sum_{\mathbf z}p(\mathbf z | \mathbf x, \Theta^t)\ln p(\mathbf x, \mathbf z | \Theta)$
+
 
 [返回](readme.md)

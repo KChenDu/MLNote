@@ -32,7 +32,18 @@
 		由此产生的无向图成为“道德图”，令父结点相连的过程称为“道德化”
 		假定道德图中有变量$x$，$y$和变量集合$\mathbf z = {z_i}$，若变量$x$和$y$能在图上被$\mathbf z$分开，即道德图中将变量集合$\mathbf z$去除后，$x$和$y$分属两个连通分支，则称变量$x$和$y$被$\mathbf z$有向分离，$x \perp y | \mathbf z$成立。
 	2. 学习
+
+		我们先定义一个评分函数，以此来评估贝叶斯网与训练数据的契合程度，然后基于这个评分函数来寻找结构最优的贝叶斯网
+		$$s(B | D) = f(\theta)|B| - LL(B | D)$$
+		中，$|B|$是贝叶斯网的参数个数；$f(\theta)$表示描述每个参数$\theta$所需的字节数；而$LL(B | D) = \sum_{i = 1}^m\log P_B(\mathbf x_i)$
+		- AIC评分函数：$f(\theta) = 1 \Rightarrow AIC(B | D) = |B| - LL(B| D)$
+		- BIC评分函数：$f(\theta) = \frac12\log m \Rightarrow BIC(B | D) = \frac{\log m}2|B| - LL(B | D)$
+		$$\theta_{x_i | \pi_i} = \hat P_D(x_i | \pi_i)$$
 	3. 推断
+		![Gibbs sampling](GibbsSampling.png "吉布斯采样")
+		吉布斯采样算法先随机产生一个与证据$E = \mathbf e$一致的样本$\mathbf q^0$作为初始点，然后每步从当前样本出发产生下一个样本。具体来说，在第$t$次采样中，算法先假设$\mathbf q^t = \mathbf q^{t - 1}$，然后对非证据变量逐个进行采样改变其取值，采样概率根据贝叶斯网B和其他变量的当前取值（即$Z = \mathbf z$）计算获得。假定经过$T$次采样得到的与$\mathbf q$一致的样本共有$n_q$个，则可近似估算出后验概率$P(Q = \mathbf q | E = \mathbf e) \simeq \frac{n_q}T$
+		
+		需注意的是，由于马尔可夫链通常需很长时间才能趋于平稳分布，因此吉布斯采样算法的收敛速度较慢。此外，若贝叶斯网中存在极端概率“0”或“1”，则不能保证马尔可夫链存在平稳分布，此时吉布斯采样会给出错误的估计结果
 2. 隐马尔可夫模型
     $$P(x_1, y_1, ..., x_n, y_n) = P(y_1)P(x_1 | y_1)\prod_{i = 2}^nP(y_i | y_{i - 1})P(x_i | y_i)$$
     - 状态转移概率：$a_{ij} = P(y_{t + 1} = s_j | y_t = s_i), 1 \leq i, j \leq N$
