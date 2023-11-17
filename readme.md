@@ -5,6 +5,7 @@
 - [线性模型](linear_models/readme.md)
 - [决策树](decision_tree/readme.md)
 - [支持向量机](SVM/readme.md)
+- [贝叶斯分类器](bayesian_classifier.md)
 - [集成学习](ensemble_learning/readme.md)
 - [kNN](kNN.ipynb)
 - [概率图模型](graphical_models/readme.md)
