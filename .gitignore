@@ -1,4 +1,5 @@
 *.DS_Store
+*.mmap
 .idea
 .obsidian
 books
