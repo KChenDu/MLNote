@@ -74,7 +74,7 @@
     
     假设有$N$种可能的类别标记，即$\mathcal Y = {c_1, c_2, ..., c_N}$，$\lambda_{ij}$是将一个真实标记为$c_j$的样本误分类为$c_i$所产生的损失
     - 期望损失：$R(c_i | \mathrm x) = \sum_{j = 1}^N\lambda_{ij}P(c_j | \mathbf x)$
-    - 总体风险：$R(h) = \mathbb E_x[R(h(\mathbf x) | \mathbf x)] \Rightarrow h^*(\mathbf x) = \argmin_{c \in \mathcal y} R(c | \mathbf x)$
+    - 总体风险：$R(h) = \mathbb E_\mathbf x[R(h(\mathbf x) | \mathbf x)] \Rightarrow h^*(\mathbf x) = \argmin_{c \in \mathcal y} R(c | \mathbf x)$
     $$\lambda_{ij} =
     \begin{cases}
         0\text{, if }i = j \\
@@ -84,7 +84,7 @@
     $$P(c | \mathbf x) = \frac{P(\mathbf x, c)}{P(\mathbf x)} = \frac{P(c)P(\mathbf x | c)}{P(\mathbf x)}$$
     - $P(c)$是类先验概率；$P(\mathbf x | c)$是样本$\mathbf x$相对于类标记$c$的类条件概率；$P(\mathbf x)$是用于归一化的证据因子
 7. 最大似然估计
-    $$P(D_c | \theta_c) = \prod_{x \in D_c}P(\mathbf x | \mathbf\theta_c) \Rightarrow\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}p_{\mathrm{model}}(\mathbb X; \mathbf\theta) = \argmax_{\mathbf\theta}\prod_{i = 1}^m p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m \log p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\mathbb E_{\mathbf x \sim \hat p_{\mathrm{data}}}  \log p_{\mathrm{model}}(\mathbf x; \mathbf\theta)$$
+    $$P(D_c | \theta_c) = \prod_{\mathbf x \in D_c}P(\mathbf x | \mathbf\theta_c) \Rightarrow\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}p_{\mathrm{model}}(\mathbb X; \mathbf\theta) = \argmax_{\mathbf\theta}\prod_{i = 1}^m p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m \log p_{\mathrm{model}}(\mathbf x^{(i)}; \mathbf\theta) = \argmax_{\mathbf\theta}\mathbb E_{\mathbf x \sim \hat p_{\mathrm{data}}}  \log p_{\mathrm{model}}(\mathbf x; \mathbf\theta)$$
     1. 对数似然：$LL(\theta_c) = \log P(D_c | \mathbf\theta_c) = \sum_{x \in D_c}\log P(\mathbf x | \mathbf\theta_c) \Rightarrow \hat{\mathbf\theta}_c = \argmax_{\mathbf\theta_c} LL(\mathbf\theta_c)$
     2. 条件对数似然：$\mathbf\theta_{\mathrm{ML}} = \argmax_{\mathbf\theta}P(\mathbf Y | \mathbf X; \mathbf\theta) = \argmax_{\mathbf\theta}\sum_{i = 1}^m\log P(\mathbf y^{(i)} | \mathbf x^{(i)}; \mathbf\theta)$
     3. 最大似然的性质

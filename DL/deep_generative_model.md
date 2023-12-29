@@ -9,7 +9,7 @@
             We measure this using the reconstruction log-likelihood $\log p_{\phi}(x | z)$ whose units are nats.
 
             - *loss function*: the negative log-likelihood with a regularizer. Because there are no global representations that are shared by all datapoints, we can decompose the loss function into only terms that depend on a single datapoint $l_i$. The total loss is then $\sum_{i = 1}^Nl_i$ for $N$ total datapoints.
-                $$l_i(\theta, \phi) = -\mathbb E_{z \sim q_\theta(z | x_i)} + \mathrm{KL}(q_\theta(z | x_i) \| p(z))$$
+                $$l_i(\theta, \phi) = -\mathbb E_{z \sim q_\theta(z | x_i)}[\log p_\phi(x_i | z)] + \mathrm{KL}(q_\theta(z | x_i) \| p(z))$$
                 The first term is the reconstruction loss. The second term is a regularizer that we throw in.
             In the variational autoencoder, $p$ is specified as a standard Normal distribution with mean zero and variance one, or $p(z) = \mathrm{Normal}(0, 1)$.
 
@@ -23,10 +23,11 @@
             $$p(z | x) = \frac{p(x | z)p(z)}{p(x)}$$
             Variational inference approximates the posterior with a family of distributions $q_\lambda(z | x)$. The variational parameter $\lambda$ indexes the family of distributions.
 
-            **How can we know how well our variational posterior $q(z | x)$ approximates the true posterior $p(z∣x)$?** We can use the Kullback-Leibler divergence, which measures the information lost when using $q$ to approximate $p$ (in units of nats): $\mathrm{KL}(q_\lambda(z | x) \| p(z | x)) = \mathbb E_q[\log q(z | x)] - \mathbb E[\log p(x, z)] + \log p(x) \Rightarrow q^*(z  |x) = \argmin_\lambda \mathrm{KL}(q_\lambda(z | x) \| p(z | x))$
+            **How can we know how well our variational posterior $q(z | x)$ approximates the true posterior $p(z|x)$?**
+            We can use the Kullback-Leibler divergence, which measures the information lost when using $q$ to approximate $p$ (in units of nats): $\mathrm{KL}(q_\lambda(z | x) \| p(z | x)) = \mathbb E_q[\log q(z | x)] - \mathbb E_q[\log p(x, z)] + \log p(x) \Rightarrow q_\lambda^*(z  |x) = \argmin_\lambda \mathrm{KL}(q_\lambda(z | x) \| p(z | x))$
             $$\mathrm{ELBO}(\lambda) = \mathbb E_q[\log p(x, z)] - \mathbb E_q[\log q_\lambda(z | x)] \Rightarrow \log p(x) = \mathrm{ELBO}(\lambda) + \mathrm{KL}(q_\lambda(z | x) \| p(z | x))$$
             The ELBO for a single datapoint in the variational autoencoder is: $\mathrm{ELBO}_i(\lambda) = \mathbb E_{q_\lambda(z | x_i)}[\log p(x_i | z)] - \mathrm{KL}(q_\lambda(z | x_i) \| p(z))$
         3. **Connection**
-            We can write the ELBO and include the inference and generative network parameters as: $\mathrm{ELBO}_i(\theta, \phi) = \mathbb E_{q_\theta(z | x_i)}[\log p_\phi(x_i | z)] - \mathrm{KL}(q_\theta(z | x_i) \| p(z)) \Rightarrow \mathrm{ELBO}_i(\theta, \phi)$
+            We can write the ELBO and include the inference and generative network parameters as: $\mathrm{ELBO}_i(\theta, \phi) = \mathbb E_{q_\theta(z | x_i)}[\log p_\phi(x_i | z)] - \mathrm{KL}(q_\theta(z | x_i) \| p(z)) \Rightarrow \mathrm{ELBO}_i(\theta, \phi) = -l_i(\theta, \phi)$
 
 [返回](readme.md)

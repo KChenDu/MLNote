@@ -8,6 +8,7 @@
 - [贝叶斯分类器](bayesian_classifier.md)
 - [集成学习](ensemble_learning/readme.md)
 - [降维与度量学习](dimension_reduction_and_metric_learning/readme.md)
+- [计算学习理论](computational_learning_theory.md)
 - [概率图模型](graphical_models/readme.md)
 - [深度学习](DL/readme.md)
 - [NLP](NLP/readme.md)
