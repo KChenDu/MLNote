@@ -49,6 +49,25 @@
 
 5. Rademacher复杂度
     
-    给定训练集$D = \{(\mathbf x_1, y_1), (\mathbf x_2, y_2), \dots, (\mathbf x_m, y_m)\}$，假设$h$的经验误差为$\hat E(h) = \frac1m\sum_{i = 1}^m\mathbb I(h(\mathbf x_i ) \neq y_i) = \frac1m\sum_{i = 1}^m\frac{1 - y_ih(\mathbf x_i)}2 = \frac12 - \frac1{2m}\sum_{i = 1}^my_ih(\mathbf x_i)$
+    给定训练集$D = \{(\mathbf x_1, y_1), (\mathbf x_2, y_2), \dots, (\mathbf x_m, y_m)\}$，假设$h$的经验误差为$\hat E(h) = \frac1m\sum_{i = 1}^m\mathbb I(h(\mathbf x_i ) \neq y_i) = \frac1m\sum_{i = 1}^m\frac{1 - y_ih(\mathbf x_i)}2 = \frac12 - \frac1{2m}\sum_{i = 1}^my_ih(\mathbf x_i)$。也就是说，经验误差最小的假设是$\argmax_{h \in \mathcal H}\frac1m\sum_{i = 1}^my_ih(\mathbf x_i)$
+
+    考虑随机变量$\sigma_i$，它以0.5的概率取值-1，0.5的概率取值+1，称为Rademacher随机变量。基于$\sigma_i$可将式重写为$\sup_{h \in \mathcal H}\frac1m\sum_{i = 1}^m\sigma_ih(\mathbf x_i) \Rightarrow \mathbb E_{\mathbf\sigma}[\sup_{h \in \mathcal H}\frac1m\sum_{i = 1}^m\sigma_ih(\mathbf x_i)]$
+
+    **函数空间$\mathcal F$关于$Z$的经验Rademacher复杂度**：$\hat R_z(\mathcal F) = \mathbb E_{\mathbf\sigma}[\sup_{f \in \mathcal F}\frac1m\sum_{i = 1}^m\sigma_if(z_i)]$
+    
+    **函数空间$\mathcal F$关于$Z$上分布$\mathcal D$的Rademacher复杂度**
+    $\hat R_m(\mathcal F) = \mathbb E_{Z \subseteq \mathcal Z: |Z| = m}[\hat R_z(\mathcal F)]$
+
+    **定理**：对实值函数空间$\mathcal F: \mathcal Z \rightarrow [0, 1]$，根据分布$\mathcal D$从$\mathcal Z$中独立同分布采样得到示例集$Z = {\mathbf z_1, \mathbf z_2, \dots, \mathbf z_m}$，$\mathbf z_i \in \mathcal Z$, $0 < \delta < 1$，对任意$f \in \mathcal F$，以至少$1 - \delta$的概率有
+        $$\mathbb E[f(\mathbf z)] \leq \frac1m\sum_{i = 1}^mf(\mathbf z_i) + 2R_m(\mathcal F) + \sqrt{\frac{\ln(1 / \delta)}{2m}}$$
+        $$\mathbb E[f(\mathbf z)] \leq \frac1m\sum_{i = 1}^mf(\mathbf z_i) + 2\hat R_Z(\mathcal F) + 3\sqrt{\frac{\ln(2 / \delta)}{2m}}$$
+
+    **定理**：对假设空间$\mathcal H: \mathcal X \rightarrow [-1, +1]$，根据分布$\mathcal D$从$\mathcal X$中独立同分布采样得到示例集$D = {\mathbf x_1, \mathbf x_2, \dots, \mathbf x_m}$，$\mathbf x_i \in \mathcal x$, $0 < \delta < 1$，对任意$h \in \mathcal H$，以至少$1 - \delta$的概率有
+        $$E(h) \leq \hat E(h) + R_m(\mathcal H) + \sqrt{\frac{\ln(1 / \delta)}{2m}}$$
+        $$E(h) \leq \hat E(h) + \hat R_D(\mathcal H) + 3\sqrt{\frac{\ln(2 / \delta)}{2m}}$$
+
+    **定理**：对假设空间$\mathcal H$的Rademacher复杂度$R_m(\mathcal H)$与增长函$\prod_{\mathcal H}(m)$满足$R_m(\mathcal H) \leq \sqrt{\frac{2\ln\prod_{\mathcal H}(m)}m}$
+
+    $$E(h) \leq \hat E(h) + \sqrt{\frac{2d\ln\frac{em}d}m} + \sqrt{\frac{\ln(1 / \delta)}{2m}}$$
 
 [返回](readme.md)
