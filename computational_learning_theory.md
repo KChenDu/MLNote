@@ -55,7 +55,7 @@
 
     **函数空间$\mathcal F$关于$Z$的经验Rademacher复杂度**：$\hat R_z(\mathcal F) = \mathbb E_{\mathbf\sigma}[\sup_{f \in \mathcal F}\frac1m\sum_{i = 1}^m\sigma_if(z_i)]$
     
-    **函数空间$\mathcal F$关于$Z$上分布$\mathcal D$的Rademacher复杂度**
+    **函数空间$\mathcal F$关于$Z$上分布$\mathcal D$的Rademacher复杂度**：
     $\hat R_m(\mathcal F) = \mathbb E_{Z \subseteq \mathcal Z: |Z| = m}[\hat R_z(\mathcal F)]$
 
     **定理**：对实值函数空间$\mathcal F: \mathcal Z \rightarrow [0, 1]$，根据分布$\mathcal D$从$\mathcal Z$中独立同分布采样得到示例集$Z = {\mathbf z_1, \mathbf z_2, \dots, \mathbf z_m}$，$\mathbf z_i \in \mathcal Z$, $0 < \delta < 1$，对任意$f \in \mathcal F$，以至少$1 - \delta$的概率有
