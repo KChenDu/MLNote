@@ -10,5 +10,6 @@
 - [降维与度量学习](dimension_reduction_and_metric_learning/readme.md)
 - [计算学习理论](computational_learning_theory.md)
 - [概率图模型](graphical_models/readme.md)
+- [强化学习](RL/readme.md)
 - [深度学习](DL/readme.md)
 - [NLP](NLP/readme.md)
