@@ -3,8 +3,9 @@ import tensorflow as tf
 from functools import partial
 
 
-DefaultConv2D = partial(tf.keras.layers.Conv2D, kernel_size=3, strides=1, padding="same", kernel_initializer="he_normal", use_bias=False)
-
+DefaultConv2D = partial(tf.keras.layers.Conv2D, kernel_size=3, strides=1,
+                        padding="same", kernel_initializer="he_normal",
+                        use_bias=False)
 
 class ResidualUnit(tf.keras.layers.Layer):
     def __init__(self, filters, strides=1, activation="relu", **kwargs):
@@ -39,9 +40,8 @@ model = tf.keras.Sequential([
     tf.keras.layers.BatchNormalization(),
     tf.keras.layers.Activation("relu"),
     tf.keras.layers.MaxPool2D(pool_size=3, strides=2, padding="same"),
-    ])
+])
 prev_filters = 64
-
 for filters in [64] * 3 + [128] * 4 + [256] * 6 + [512] * 3:
     strides = 1 if filters == prev_filters else 2
     model.add(ResidualUnit(filters, strides=strides))

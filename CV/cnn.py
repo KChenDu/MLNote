@@ -1,9 +1,21 @@
 import tensorflow as tf
+import numpy as np
 
 from functools import partial
 
 
-DefaultConv2D = partial(tf.keras.layers.Conv2D, kernel_size=3, padding="same", activation="relu", kernel_initializer="he_normal")
+# extra code – loads the mnist dataset, add the channels axis to the inputs,
+#              scales the values to the 0-1 range, and splits the dataset
+mnist = tf.keras.datasets.fashion_mnist.load_data()
+(X_train_full, y_train_full), (X_test, y_test) = mnist
+X_train_full = np.expand_dims(X_train_full, axis=-1).astype(np.float32) / 255
+X_test = np.expand_dims(X_test.astype(np.float32), axis=-1) / 255
+X_train, X_valid = X_train_full[:-5000], X_train_full[-5000:]
+y_train, y_valid = y_train_full[:-5000], y_train_full[-5000:]
+
+tf.random.set_seed(42)  # extra code – ensures reproducibility
+DefaultConv2D = partial(tf.keras.layers.Conv2D, kernel_size=3, padding="same",
+                        activation="relu", kernel_initializer="he_normal")
 model = tf.keras.Sequential([
     DefaultConv2D(filters=64, kernel_size=7, input_shape=[28, 28, 1]),
     tf.keras.layers.MaxPool2D(),
@@ -22,3 +34,12 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dropout(0.5),
     tf.keras.layers.Dense(units=10, activation="softmax")
 ])
+
+# extra code – compiles, fits, evaluates, and uses the model to make predictions
+model.compile(loss="sparse_categorical_crossentropy", optimizer="nadam",
+              metrics=["accuracy"])
+history = model.fit(X_train, y_train, epochs=10,
+                    validation_data=(X_valid, y_valid))
+score = model.evaluate(X_test, y_test)
+X_new = X_test[:10]  # pretend we have new images
+y_pred = model.predict(X_new)
