@@ -15,11 +15,17 @@
             实践中，一般会线性衰减学习率直到第$\tau$次迭代：
             $$\epsilon_k = (1 - \alpha)\epsilon_0 + \alpha\epsilon_\tau$$
     2. [动量](momentum_optimization.py)
-
+        ![SGD with Momentum](SGDwithMomentum.png "SGD with Momentum")
         从形式上看，动量算法引入了变量$\mathbf v$充当速度角色——它代表参数在参数空间移动的方向和速率。速度被设为负梯度的指数衰减平均。更新规则如下：
         $$\mathbf v \leftarrow \alpha\mathbf v - \epsilon\nabla_{\mathbf\theta}(\frac1m\sum_{i = 1}^mL(f(\mathbf x^{(i)}; \mathbf\theta), \mathbf y^{(i)})) \\
         \mathbf\theta \leftarrow \mathbf\theta + \mathbf v$$
         - 步长大小：$\frac{\epsilon\|\mathbf g\|}{1 - \alpha}$
+    3. [Nesterov动量](nesterov.py)
+        $$\mathbf v \leftarrow \alpha\mathbf v - \epsilon\nabla_{\mathbf\theta}(\frac1m\sum_{i = 1}^mL(f(\mathbf x^{(i)}; \mathbf\theta + \alpha\mathbf v), \mathbf y^{(i)})) \\
+        \mathbf\theta \leftarrow \mathbf\theta + \mathbf v$$
+        Nesterov动量和标准动量之间的区别体现在梯度计算上。Nesterov动量中，梯度计算在施加当前速度之后。因此，Nesterov动量可以解释为往标准动量方法中添加了一个校正因子
+        ![Nesterov](Nesterov.png "Nesterov")
+        在凸批量梯度的情况下，Nesterov动量将额外误差收敛率从$O(1 / k)$（k 步后）改进到$O(1/k^2)$。可惜，在随机梯度的情况下，Nesterov动量没有改进收敛率
 5. 自适应学习率算法
     1. [AdaGrad](adagrad.py)
         - 独立地适应所有模型参数的学习率，缩放每个参数反比于其所有梯度历史平方值总和的平方根
