@@ -12,4 +12,5 @@
 - [概率图模型](graphical_models/readme.md)
 - [强化学习](RL/readme.md)
 - [深度学习](DL/readme.md)
+- [CV](CV/readme.md)
 - [NLP](NLP/readme.md)
