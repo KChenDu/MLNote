@@ -32,6 +32,63 @@
 3. 有模型学习
 
     考虑多步强化学习任务，暂且先假定任务对应的马尔可夫决策过程四元组$E = \langle X, A, P, R\rangle$均为己知，这样的情形称为”模型己知“，即机器已对环境进行了建模，能在机器内部模拟出与环境相同或近似的状况。在己知模型的环境中学习称为”有模型学习“。此时，对于任意状态$x$, $x'$和动作$a$，在$x$状态下执行动作$a$转移到$x'$状态的概率$P_{x \rightarrow x'}^a$是己知的，该转移所带来的奖赏$R_{x \rightarrow x'}^a$也是已知的
+    1. 策略评估
+
+        令函数$V^\pi(x)$表示从状态$x$出发，使用策略作所带来的累积奖赏；函数$Q^\pi(x, a)$表示从状态$x$出发，执行动作$a$后再使用策略$\pi$带来的累积奖赏。这里的$V(·)$称为“状态值函数”，$Q(·)$称为“状态动作值函数”，分别表示指定“状态”上以及指定“状态-动作“上的累积奖赏
+
+        由累积奖赏的定义，有状态值函数$
+        \begin{cases}
+            V_T^\pi(x) = \mathbb E_\pi[\frac1T\sum_{t = 1}^Tr_t | x_0 = x]\text{， }T\text{步累计奖赏} \\
+            V_\gamma^\pi(x) = \mathbb E_\pi[\sum_{t = 0}^{+\infty}r_{t + 1} | x_0 = x]\text{， }\gamma\text{折扣累计奖赏}
+        \end{cases}
+        $
+
+        令$x_0$表示起始状态，$a_0$表示起始状态上采取的第一个动作；对于$T$步累积奖赏，用下标$t$表示后续执行的步数。我们有状态-动作值函数$
+        \begin{cases}
+            Q_T^\pi(x, a) = \mathbb E_\pi[\frac1T\sum_{t = 1}^Tr_t | x_0 = x, a_0 = a] \\
+            Q_\gamma^\pi(x, a) = \mathbb E_\pi[\sum_{t = 0}^{+\infty}r_{t + 1} | x_0 = x, a_0 = a]
+        \end{cases}
+        $
+
+        由于MDP具有马尔可夫性质，即系统下一时刻的状态仅由当前时刻的状态决定，不依赖于以往任何状态，于是值函数有很简单的递归形式。对于$T$步累积奖赏有$V_T^\pi(x) = \mathbb E_\pi[\frac1T\sum_{t = 1}^Tr_t | x_0 = x] = \mathbb E_\pi[\frac1Tr_1 + \frac{T - 1}T\frac1{T - 1}\sum_{t = 2}^Tr_t | x_0 = x] = \sum_{a \in A}\pi(x, a)\sum_{x' \in X}P_{x \rightarrow x'}^a(\frac1TR_{x \rightarrow x'}^a + \frac{T - 1}T\mathbb E_\pi[\frac1{T - 1}\sum_{t = 1}^{T - 1}r_t | x_0 = x']) = \sum_{a \in A}\pi(x, a)\sum_{x' \in X}P_{x \rightarrow x'}^a(\frac1TR_{x \rightarrow x'}^a + \frac{T - 1}TV_{ T - 1}^\pi(x'))$
+
+        类似的，对于$\gamma$折扣累积奖赏有$V_\gamma^\pi(x) = \sum_{a \in A}\pi(x, a)\sum_{x' \in X}P_{x \rightarrow x'}^a(R_{x \rightarrow x'}^a + \gamma V_\gamma^\pi(x'))$
+        ![基于T步累积奖赏的策略评估算法](Tstep_prediction.png "基于T步累积奖赏的策略评估算法")
+
+        有了状态值函数$V$，就能直接计算出状态-动作值函数$
+        \begin{cases}
+            Q_T^\pi(x, a) = \sum_{x' \in X}P_{x \rightarrow x'}^a(\frac1TR_{x \rightarrow x'}^a + \frac{T - 1}TV_{T - 1}^\pi(x')) \\
+            Q_\gamma^\pi(x, a) = \sum_{x' \in X}P_{x \rightarrow x'}^a(R_{x \rightarrow x'}^a + \gamma V_\gamma^\pi(x'))
+        \end{cases}
+        $
+    2. 策略改进
+
+        理想的策略应能最大化累积奖赏$\pi^* = \argmax_\pi\sum_{x \in X}V^\pi(x)$
+
+        一个强化学习任务可能有多个最优策略，最优策略所对应的值函数$V^*$称为最优值函数，即$\forall x \in X: V^*(x) = V^{\pi^*}(x)$
+        $$
+        \begin{cases}
+            V_T^*(x, a) = \max_{a \in A}\sum_{x' \in X}P_{x \rightarrow x'}^a(\frac1TR_{x \rightarrow x'}^a + \frac{T - 1}TV_{T - 1}^*(x')) \\
+            V_\gamma^*(x, a) = \max_{a \in A}\sum_{x' \in X}P_{x \rightarrow x'}^a(R_{x \rightarrow x'}^a + \gamma V_\gamma^*(x'))
+        \end{cases} \Rightarrow V^*(x) = \max_{a \in A} Q^{\pi^*}(x, a)
+        $$
+        上述关于最优值函数的等式，称为最优Bellman等式，其唯一解是最优值函数
+
+        最优Bellman等式揭示了非最优策略的改进方式：将策略选择的动作改变为当前最优的动作$V^\pi(x) \le Q^\pi(x, \pi'(x)) = \sum_{x' \in X}P_{x \rightarrow x'}^{\pi'(x)}(R_{x \rightarrow x'}^{\pi'(x)} + \gamma V^\pi(x')) \le \sum_{x' \in X}P_{x \rightarrow x'}^{\pi'(x)}(R_{x \rightarrow x'}^{\pi'(x)} + \gamma Q^\pi(x', \pi'(x'))) = \dots = V^{\pi'}(x)$
+
+        值函数对于策略的每一点改进都是单调递增的，因此对于当前策略$\pi$，可放心地将其改进为$\pi'(x) = \argmax_{a \in A}Q^\pi(x, a)$，直到$\pi'$与$\pi$一致、不再发生变化，此时就满足了最优Bellman等式，即找到了最优策略
+    3. 策略迭代与值迭代
+
+        由前两小节我们知道了如何评估一个策略的值函数，以及在策略评估后如何改进至获得最优策略。显然，将这两者结合起来即可得到求解最优解的方法：从一个初始策略（通常是随机策略）出发，先进行策略评估，然后改进策略，评估改进的策略，再进一步改进策略，……不断迭代进行策略评估和改进，直到策略收敛、不再改变为止。这样的做法称为”策略迭代“
+        ![基于T步累积奖赏的策略迭代算法](policy_iteration.png "基于T步累积奖赏的策略迭代算法")
+        $$
+        \begin{cases}
+            V_T(x) = \max_{a \in A}\sum_{x' \in X}P_{x \rightarrow x'}^a(\frac1TR_{x \rightarrow x'}^a + \frac{T - 1}TV_{T - 1}(x')) \\
+            V_\gamma(x) = \max_{a \in A}\sum_{x' \in X}P_{x \rightarrow x'}^a(R_{x \rightarrow x'}^a + \gamma V_\gamma(x'))
+        \end{cases}
+        $$
+        ![基于T步累积奖赏的值迭代算法](policy_iteration.png "基于T步累积奖赏的值迭代算法")
+        从上面的算法可看出，在模型已知时强化学习任务能归结为基于动态规划的寻优问题。与监督学习不同，这里并未涉及到泛化能力，而是为每一个状态找到最好的动作
 4. 免模型学习
 
     学习算法不依赖于环境建模，则称为争“免模型学习”，这比有模型学习要困难得多
@@ -71,5 +128,14 @@
         通过增量求和可得$Q_{t + 1}^\pi(x, a) = Q_t^\pi + \alpha(R_{x \rightarrow x'}^a - \gamma Q_t^\pi(x', a') - Q_t^\pi(x, a))$
         ![Sarsa算法](Sarsa.png "Sarsa算法")
         ![Q-学习算法](Q-learning.png "Q-学习算法")
+5. 值函数近似
+
+    假定状态空间为$n$维实数空间$X = \mathbb R^n$，此时显然无法用表格值函数来记录状态值。先考虑简单情形，即值函数能表达为状态的线性函数$V_{\mathbf\theta}(x) = \mathbf\theta^\top\mathbf x$其中$x$为状态向量，$\mathbf\theta$为参数向量。由于此时的值函数难以像有限状态那样精确记录每个状态的值，因此这样值函数的求解被称为值函数近似。
+    - 最小二乘误差：$E_\mathbf\theta = \mathbb E_{\mathbf x \sim \pi}[(V^\pi(\mathbf x) - V_\mathbf\theta(\mathbf x))^2] \Rightarrow -\frac{\partial E_\mathbf\theta}{\partial\mathbf\theta} = \mathbb E_{\mathbf x \sim \pi}[2(V^\pi(\mathbf x) - V_\mathbf\theta(\mathbf x))\frac{\partial V_\mathbf\theta(\mathbf x)}{\partial\mathbf\theta}] = \mathbb E_{\mathbf x \sim \pi}[2(V^\pi(\mathbf x) - V_\mathbf\theta(\mathbf x))\mathbf x] \Rightarrow \mathbf\theta = \mathbf\theta + \alpha(V^\pi(\mathbf x) - V_\mathbf\theta(\mathbf x))\mathbf x$
+
+    我们并不知道策略的真实值函数$V^\pi$，但可借助时序差分学习，基于$V^\pi(\mathbf x) = r + \gamma V^\pi(\mathbf x')$用当前估计的值函数代替真实值函数，即$\mathbf\theta = \mathbf\theta + \alpha(r + \gamma V_\mathbf\theta(\mathbf x') - V_\mathbf\theta(\mathbf x))\mathbf x$，其中$\mathbf x'$是下一时刻的状态
+
+    需注意的是，在时序差分学习中需要状态-动作值函数以便获取策略。这里一种简单的做法是令$\mathbf\theta$作用于表示状态和动作的联合向量上，例如给状态向量增加一维用于存放动作编号；另一种做法是用0/1对动作选择进行编码得到向量$\mathbf a = (0; \dots; 1; \dots;0)$，其中“1”表示该动作被选择，再将状态向量与其合并得到$(\mathbf x; \mathbf a)$。这样就使得线性近似的对象为状态-动作值函数
+    ![线性值函数近似Sarsa算法](approx_Sarsa.png "线性值函数近似Sarsa算法")
 
 [返回](../readme.md)
