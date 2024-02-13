@@ -1,8 +1,8 @@
 1. 任务与奖赏
     
-    强化学习任务通常用马尔可夫决策过程来描述：机器处于环境$E$中，状态空间为$X$，其中每个状态$x \in X$是机器感知到的环境的描述。若某个动作$a \in A$作用在当前状态$x$上，则潜在的转移函数$P$将使得环境从当前状态按某种概率转移到另一个状态；在转移到另一个状态的同时，环境会根据潜在的“奖赏”函数$R$反馈给机器一个奖赏。综合起来，强化学习任务对应了四元组$E = \langle X, A, P, R\rangle$，其中$P: X \times A \times X \rightarrow \mathbb R$指定了状态转移概率，$R: X \times A \times X \rightarrow \mathbb R$指定了奖赏；在有的应用中，奖赏函数可能仅与状态转移有关，即$R: X \times X \rightarrow \mathbb R$
+    强化学习任务通常用[马尔可夫决策过程](markov_decision_process.ipynb)来描述：机器处于环境$E$中，状态空间为$X$，其中每个状态$x \in X$是机器感知到的环境的描述。若某个动作$a \in A$作用在当前状态$x$上，则潜在的转移函数$P$将使得环境从当前状态按某种概率转移到另一个状态；在转移到另一个状态的同时，环境会根据潜在的“奖赏”函数$R$反馈给机器一个奖赏。综合起来，强化学习任务对应了四元组$E = \langle X, A, P, R\rangle$，其中$P: X \times A \times X \rightarrow \mathbb R$指定了状态转移概率，$R: X \times A \times X \rightarrow \mathbb R$指定了奖赏；在有的应用中，奖赏函数可能仅与状态转移有关，即$R: X \times X \rightarrow \mathbb R$
 
-    机器要做的是通过在环境中不断地尝试而学得一个“策略”$\pi$，根据这个策略，在状态$x$下就能得知要执行的动作$a = \pi(x)$。策略有两种表示方法：一种是将策略表示为函数$\pi: X \rightarrow A$， 确定性策略常用这种表示；另一种是概率表示$\pi: X \times A \rightarrow \mathbb R$，随机性策略常用这种表示$\pi(x, a)$为状态$x$下选择动作$a$的概率，这里必须有$\sum_a\pi(x, a) = 1$
+    机器要做的是通过在环境中不断地尝试而学得一个[“策略”$\pi$](policy.ipynb)，根据这个策略，在状态$x$下就能得知要执行的动作$a = \pi(x)$。策略有两种表示方法：一种是将策略表示为函数$\pi: X \rightarrow A$， 确定性策略常用这种表示；另一种是概率表示$\pi: X \times A \rightarrow \mathbb R$，随机性策略常用这种表示$\pi(x, a)$为状态$x$下选择动作$a$的概率，这里必须有$\sum_a\pi(x, a) = 1$
 
     策略的优劣取决于长期执行这一策略后得到的累积奖赏。长期累积奖赏有多种计算方式，常用的有“T步累积奖赏“$\mathbb E[\frac1T\sum_{t = 1}^Tr_t]$和”$\gamma$折扣累积奖赏“$\mathbb E[\sum_{t = 0}^{+\infty}\gamma^tr_{t + 1}]$，其中$r_t$表示第$t$步获得的奖赏值，$\mathbb E$表示对所有随机变量求期望
 2. K-摇臂赌博机
@@ -61,22 +61,7 @@
             Q_\gamma^\pi(x, a) = \sum_{x' \in X}P_{x \rightarrow x'}^a(R_{x \rightarrow x'}^a + \gamma V_\gamma^\pi(x'))
         \end{cases}
         $
-    2. 策略改进
-
-        理想的策略应能最大化累积奖赏$\pi^* = \argmax_\pi\sum_{x \in X}V^\pi(x)$
-
-        一个强化学习任务可能有多个最优策略，最优策略所对应的值函数$V^*$称为最优值函数，即$\forall x \in X: V^*(x) = V^{\pi^*}(x)$
-        $$
-        \begin{cases}
-            V_T^*(x, a) = \max_{a \in A}\sum_{x' \in X}P_{x \rightarrow x'}^a(\frac1TR_{x \rightarrow x'}^a + \frac{T - 1}TV_{T - 1}^*(x')) \\
-            V_\gamma^*(x, a) = \max_{a \in A}\sum_{x' \in X}P_{x \rightarrow x'}^a(R_{x \rightarrow x'}^a + \gamma V_\gamma^*(x'))
-        \end{cases} \Rightarrow V^*(x) = \max_{a \in A} Q^{\pi^*}(x, a)
-        $$
-        上述关于最优值函数的等式，称为最优Bellman等式，其唯一解是最优值函数
-
-        最优Bellman等式揭示了非最优策略的改进方式：将策略选择的动作改变为当前最优的动作$V^\pi(x) \le Q^\pi(x, \pi'(x)) = \sum_{x' \in X}P_{x \rightarrow x'}^{\pi'(x)}(R_{x \rightarrow x'}^{\pi'(x)} + \gamma V^\pi(x')) \le \sum_{x' \in X}P_{x \rightarrow x'}^{\pi'(x)}(R_{x \rightarrow x'}^{\pi'(x)} + \gamma Q^\pi(x', \pi'(x'))) = \dots = V^{\pi'}(x)$
-
-        值函数对于策略的每一点改进都是单调递增的，因此对于当前策略$\pi$，可放心地将其改进为$\pi'(x) = \argmax_{a \in A}Q^\pi(x, a)$，直到$\pi'$与$\pi$一致、不再发生变化，此时就满足了最优Bellman等式，即找到了最优策略
+    2. [策略改进](policy_gradients.ipynb)
     3. 策略迭代与值迭代
 
         由前两小节我们知道了如何评估一个策略的值函数，以及在策略评估后如何改进至获得最优策略。显然，将这两者结合起来即可得到求解最优解的方法：从一个初始策略（通常是随机策略）出发，先进行策略评估，然后改进策略，评估改进的策略，再进一步改进策略，……不断迭代进行策略评估和改进，直到策略收敛、不再改变为止。这样的做法称为”策略迭代“
@@ -137,5 +122,7 @@
 
     需注意的是，在时序差分学习中需要状态-动作值函数以便获取策略。这里一种简单的做法是令$\mathbf\theta$作用于表示状态和动作的联合向量上，例如给状态向量增加一维用于存放动作编号；另一种做法是用0/1对动作选择进行编码得到向量$\mathbf a = (0; \dots; 1; \dots;0)$，其中“1”表示该动作被选择，再将状态向量与其合并得到$(\mathbf x; \mathbf a)$。这样就使得线性近似的对象为状态-动作值函数
     ![线性值函数近似Sarsa算法](approx_Sarsa.png "线性值函数近似Sarsa算法")
+6. [OpenAI Gymnasium介绍](gymnasium.ipynb)
+7. [Q-学习算法](q-learning.ipynb)
 
 [返回](../readme.md)
