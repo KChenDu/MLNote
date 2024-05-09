@@ -124,5 +124,6 @@
     ![线性值函数近似Sarsa算法](approx_Sarsa.png "线性值函数近似Sarsa算法")
 6. [OpenAI Gymnasium介绍](gymnasium.ipynb)
 7. [Q-学习算法](q-learning.ipynb)
+8. [习题](exercises.md)
 
 [返回](../readme.md)
