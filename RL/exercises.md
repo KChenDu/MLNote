@@ -448,7 +448,7 @@
 ## 练习
 1. **正如回报可以按照第一个奖励和一步之后递归写入，同样$\lambda$回报也可以。从$G_t^\lambda = (1 - \lambda)\sum_{n = 1}^\infty\lambda^{n - 1}G_{t:t + n}$和$G_{t:t + n} = R_{t + 1} + \gamma R_{t + 2} + \dots + \gamma^{n - 1} R_{t + n} + \gamma^n\hat v(S_{t + n}, \mathbf w_{t + n - 1}), 0 \le t \le T - n$得出类似的递归关系。**
 	
-	$G_t^\lambda = (1 - \lambda)G_t + \lambda G_{t + 1}^\lambda$
+	$G_t^\lambda = R_{t + 1} + \gamma G_{t + 1}^\lambda$
 
 ![](https://rl.qiwihui.com/zh-cn/latest/_images/figure-12.2.png)
 
